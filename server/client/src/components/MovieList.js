@@ -28,6 +28,8 @@ const MovieList = () => {
 
 export default MovieList;
 
+
+//another way of writing css so that you can style it right in the component
 const MovieGrid = styled.div`
   display: flex;
   flex-direction: row;

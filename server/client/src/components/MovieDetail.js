@@ -18,6 +18,9 @@ const MovieDetail = () => {
   const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
   const BACKDROP_PATH = "http://image.tmdb.org/t/p/w1280";
 
+  //Overdrive is diffeerent transitions
+  //Fragment: react doesn't like it when yhou dont have a single parent element ex backdrop isn't the parent they are all siblings.
+
   if (movie) {
     return (
       <Fragment>

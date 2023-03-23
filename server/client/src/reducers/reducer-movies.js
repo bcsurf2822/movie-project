@@ -17,6 +17,8 @@ export default function(state = DEFAULT_STATE, action) {
       return {
         // uniq ensures that if a movie was added with FETCH_MOVIE it
         // won't show up twice in the list
+        //Order is the order of ids
+        //uniq
         order: _.uniq([...state.order, ...normalizedMovies.result]),
         entries: { ...normalizedMovies.entities.movies, ...state.entries }
       }
