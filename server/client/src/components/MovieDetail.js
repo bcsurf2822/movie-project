@@ -6,7 +6,7 @@ import Overdrive from "react-overdrive";
 import { fetchMovie } from '../actions';
 import { useParams } from "react-router-dom";
 
-const MovieDetail = () => {
+const MovieDetail = (props) => {
   const { id } = useParams();
   const movie = useSelector(state => state.movies.entries[id]);
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const MovieDetail = () => {
                 {movie.vote_average}
                 /10
               </p>
+              {props.children}
             </div>
           </div>
         </DetailInfo>

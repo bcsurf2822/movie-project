@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_MOVIES, FETCH_MOVIE, AUTH_USER, AUTH_ERROR } from './types';
+import { FETCH_MOVIES, FETCH_MOVIE, AUTH_USER, AUTH_ERROR, ADD_MOVIE } from './types';
 
 export const fetchMovies = (page = 1) => dispatch => {
   axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=a50dd974dc6bceb5358b37229983facc&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`
@@ -73,4 +73,21 @@ export const signout = (callback) => dispatch => {
 
   dispatch({ type: AUTH_USER, payload: '' });
   callback()
+};
+
+export const addMovieToWatchList = (movie) => (dispatch) => {
+  const config = {
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  };
+
+  axios
+    .post("http://localhost:5000/api/watchList", { movie }, config)
+    .then(function (response) {
+      dispatch({ type: ADD_MOVIE, payload: response.data });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
