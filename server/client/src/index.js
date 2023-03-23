@@ -23,9 +23,17 @@ render(
         <Nav />
         <App>
           <Switch>
-            <Route exact path="/" component={MovieList} />
+
+            <Route exact path="/" />
+              <MovieList type='discover' />
+              </Route>
+
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
+
+            <Route exact path="/watch-list">
+              <MovieList type='watch-list' />
+            </Route>
             {/* <Route exact path="/watch-list/:id" component={MovieDetail} /> */}
             <Route exact path="/:id" >
             <MovieDetail>
