@@ -6,13 +6,23 @@ import { fetchMovies } from "../actions";
 import InfiniteScroll from "react-infinite-scroller";
 
 const MovieList = () => {
+  const [hasMoreItems, setHasMoreItems] = useState(true);
   const movieOrder = useSelector((state) => state.movies.order);
   const movies = useSelector((state) => state.movies.entries);
+  const totalPages = useSelector((state) => state.total_pages);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
+
+  const loadItems = (page) => {
+    if (page < totalPages || totalPages === 0) {
+      dispatch(fetchMovies(page))
+    } else {
+    setHasMoreItems(false);
+    }
+  };
 
   const movieComponents = movieOrder.map((id) => {
     const movie = movies[id];
@@ -28,7 +38,7 @@ const MovieList = () => {
   });
 
   return (
-    <InfiniteScroll>
+    <InfiniteScroll loadMore={loadItems} pageStart={0} hasMore={hasMoreItems}>
       <MovieGrid>{movieComponents}</MovieGrid>
     </InfiniteScroll>
   );
