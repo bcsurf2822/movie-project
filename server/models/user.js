@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 var crypto = require('crypto');
-var jwt = require('jsonwebtoken');
+const Movie = require('../models/movie')
 
 // Define our model
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   hash: String,
-  salt: String
+  salt: String,
+  watchList: [{type: Movie.MovieSchema}]
 });
 
 UserSchema.methods.setPassword = function(password){
