@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Movie from "./Movie";
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovies } from '../actions';
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "../actions";
+import InfiniteScroll from "react-infinite-scroller";
 
 const MovieList = () => {
-  const movieOrder = useSelector(state => state.movies.order);
-  const movies = useSelector(state => state.movies.entries);
+  const movieOrder = useSelector((state) => state.movies.order);
+  const movies = useSelector((state) => state.movies.entries);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,18 +17,24 @@ const MovieList = () => {
   const movieComponents = movieOrder.map((id) => {
     const movie = movies[id];
 
-    return <Movie id={movie.id} key={id} title={movie.title} img={movie.poster_path} />
+    return (
+      <Movie
+        id={movie.id}
+        key={id}
+        title={movie.title}
+        img={movie.poster_path}
+      />
+    );
   });
 
   return (
-    <MovieGrid>
-      {movieComponents}
-    </MovieGrid>
-  )
-}
+    <InfiniteScroll>
+      <MovieGrid>{movieComponents}</MovieGrid>
+    </InfiniteScroll>
+  );
+};
 
 export default MovieList;
-
 
 //another way of writing css so that you can style it right in the component
 const MovieGrid = styled.div`
