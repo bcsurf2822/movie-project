@@ -1,27 +1,20 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Movie from "./Movie";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "../actions";
+import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroller";
+import useMovies from "../useMoviesHook";
 
 const MovieList = ({ type }) => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
-  const movieOrder = useSelector((state) => state.movies.order);
-  const movies = useSelector((state) => state.movies.entries);
   const totalPages = useSelector((state) => state.total_pages);
-  const dispatch = useDispatch();
 
   //Custom Hook
-  const {
-    movieOrder,
-    movies,
-    getMovies
-  } = useMovies(type);
+  const { movieOrder, movies, getMovies } = useMovies(type);
 
   const loadItems = (page) => {
     if (page < totalPages || totalPages === 0) {
-      dispatch(fetchMovies(page));
+      getMovies(page);
     } else {
       setHasMoreItems(false);
     }
@@ -47,7 +40,11 @@ const MovieList = ({ type }) => {
       </InfiniteScroll>
     );
   } else {
-    return null;
+    return (
+      <WatchList fetchMovies={getMovies}>
+        <MovieGrid>{movieComponents}</MovieGrid>
+      </WatchList>
+    );
   }
 };
 
