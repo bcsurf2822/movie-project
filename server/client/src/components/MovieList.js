@@ -4,12 +4,12 @@ import Movie from "./Movie";
 import { useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroller";
 import useMovies from "../useMoviesHook";
+import WatchList from "./WatchList";
 
 const MovieList = ({ type }) => {
   const [hasMoreItems, setHasMoreItems] = useState(true);
   const totalPages = useSelector((state) => state.total_pages);
 
-  //Custom Hook
   const { movieOrder, movies, getMovies } = useMovies(type);
 
   const loadItems = (page) => {
@@ -58,3 +58,4 @@ const MovieGrid = styled.div`
   padding: 2em;
   margin: 0 auto;
 `;
+
