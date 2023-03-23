@@ -19,7 +19,8 @@ exports.signin = function(req, res, next) {
 exports.currentUser = function(req, res) {
   const user = {
     email: req.user.email,
-    token: tokenForUser(req.user)
+    token: tokenForUser(req.user),
+    watchListCount: req.user.watchListCount.length
   }
 
   res.send(user)

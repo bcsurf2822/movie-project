@@ -23,12 +23,16 @@ const MovieList = ({ type }) => {
   const movieComponents = movieOrder.map((id) => {
     const movie = movies[id];
 
+    //Ternary 
+    const url = type === "discover" ? `/${id}` : `watch-list/${id}`;
+
     return (
       <Movie
         id={movie.id}
         key={id}
         title={movie.title}
         img={movie.poster_path}
+        url={url}
       />
     );
   });
@@ -58,4 +62,3 @@ const MovieGrid = styled.div`
   padding: 2em;
   margin: 0 auto;
 `;
-

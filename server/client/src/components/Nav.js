@@ -9,6 +9,7 @@ const Nav = () => {
   const history = useHistory();
   const authenticated = useSelector(state => state.auth.authenticated);
   const email = useSelector(state => state.auth.email);
+  const watchListCount = useSelector(state => state.watchListCount)
 
   const handleSignOutClick = () => {
     dispatch(signout(() => {
@@ -20,6 +21,9 @@ const Nav = () => {
     if (authenticated) {
       return (
         <React.Fragment>
+          <Link to='/watch-list'>
+            <li>Watch List: {watchListCount}</li>
+          </Link>
           <li>{email}</li>
           <li><LinkButton href="#" onClick={handleSignOutClick}>Sign Out</LinkButton></li>
         </React.Fragment>

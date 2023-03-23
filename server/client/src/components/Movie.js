@@ -7,7 +7,7 @@ const POSTER_PATH = "http://image.tmdb.org/t/p/w185";
 
 const Movie = (props) => {
   return (
-    <Link to={`/${props.id}`}>
+    <Link to={`/${props.url}`}>
       <Overdrive id={String(props.id)}>
         <Poster src={`${POSTER_PATH}${props.img}`} alt={props.title} />
       </Overdrive>
